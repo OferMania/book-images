@@ -65,17 +65,20 @@ fn main() -> Result<()> {
 
     println!("Policy Ids:\n{:#?}", policy_ids);
 
+    let mut policy_id = String::from("");
     if cli.name.is_some() {
-        let name = cli.name.unwrap();
-        let exists = policy_ids.contains(&name);
-        println!("Item {} is a policy_id: {}", name, exists);
+        policy_id = cli.name.unwrap();
+        let exists = policy_ids.contains(&policy_id);
+        println!("Item {} is a policy_id: {}", policy_id, exists);
+
+        if !exists {
+            return Err(format!("policy_id not found: {}", policy_id).into());
+        }
     }
 
     let rt = tokio::runtime::Runtime::new().unwrap();
-    let genesis = rt.block_on(api.genesis()).unwrap();
-    println!("Genesis: {:#?}", genesis);
-
-
+    let asset_policy = rt.block_on(api.assets_policy_by_id(&policy_id)).unwrap();
+    println!("Asset Policy: {:#?}", asset_policy);
 
     Ok(())
 }
