@@ -80,5 +80,19 @@ fn main() -> Result<()> {
     let asset_policy = rt.block_on(api.assets_policy_by_id(&policy_id)).unwrap();
     println!("Asset Policy: {:#?}", asset_policy);
 
+    let mut asset_policies: Vec<String> = Vec::new();
+    for ap in asset_policy {
+        if ap.asset != policy_id {
+            asset_policies.push(ap.asset);
+        }
+    }
+
+    println!("Asset Policies to inspect: {:#?}", asset_policies);
+
+    for asset_id in asset_policies {
+        let asset = rt.block_on(api.assets_by_id(&asset_id)).unwrap();
+        println!("Asset Details: {:#?}", asset);
+    }
+
     Ok(())
 }
