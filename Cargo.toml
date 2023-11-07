@@ -1,0 +1,16 @@
+[package]
+name = "book_images"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+blockfrost = { version = "0.2.1" }
+clap = {version = "4.4.7", features = ["derive"] }
+error-chain = { version = "0.12.4" }
+reqwest = { version = "0.11.22", features = ["blocking"] }
+serde = { version = "1.0.108", features = ["derive"] }
+serde_json = { version = "1.0.108" }
+tokio = { version = "1.33.0", features = ["full"] }
+# json = { version = "0.12.4" }
