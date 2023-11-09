@@ -146,8 +146,16 @@ fn main() -> Result<()> {
                     } else {
                         image_srcs.insert(asset_file.src);
                     }
+
+                    if image_srcs.len() as u16 >= cli.quota {
+                        break;
+                    }
                 }
             }
+        }
+
+        if image_srcs.len() as u16 >= cli.quota {
+            break;
         }
     }
 
